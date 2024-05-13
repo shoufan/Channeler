@@ -13,12 +13,12 @@ export default function Login(){
             height={"100vh"}>
                 <Stack
                 align={"center"}
-                bgColor={"#6A4FD6"}
+                bgColor={"white"}
                 p={16}
                 rounded={"3xl"}
                 spacing={12}
                 boxShadow={"lg"}>
-                    <Box 
+                    <Box
                     bgColor={"#FC4778"}
                     width={"fit-content"}
                     padding={5}
