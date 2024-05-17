@@ -15,7 +15,7 @@ export default function Sidebar(){
     return (
         <Flex
             bg ={"#6A4FD6"}
-            w ={"300px"} h = {"100vh"}
+            w ={"300px"}
             borderEnd={"1px solid"} borderColor={"#3952F5"}
             direction={"column"}
         >
@@ -38,7 +38,7 @@ export default function Sidebar(){
 
             <Button m="5" p="4">New Chat</Button>
 
-            <Flex overflowX={"scroll"} direction={"column"} sx={{scrollbarWidth: "none"}}>
+            <Flex overflowX={"scroll"} direction={"column"} sx={{scrollbarWidth: "none"}} flex={1}>
             <Chat />
             <Chat />
             <Chat />

@@ -13,7 +13,7 @@ export default function Login(){
             height={"100vh"}>
                 <Stack
                 align={"center"}
-                bgColor={"white"}
+                bgColor={"#6A4FD6"}
                 p={16}
                 rounded={"3xl"}
                 spacing={12}
