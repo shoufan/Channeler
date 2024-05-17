@@ -1,8 +1,11 @@
 import Head from "next/head";
 import {ChatIcon} from "@chakra-ui/icons"
 import { Box, Button, Center, Stack } from "@chakra-ui/react";
+import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import { auth } from "../firebaseconfig";
 
 export default function Login(){
+    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
     return (
         <>
             <Head>
@@ -27,7 +30,7 @@ export default function Login(){
                         <ChatIcon w = "100px" h = "100px" color = "#3952F5"/>
                     </Box>
 
-                    <Button boxShadow={"md"} bgColor={"#FC4778"} textColor={"white"}>Sign in with Google</Button>
+                    <Button boxShadow={"md"} bgColor={"#FC4778"} textColor={"white"} onClick={() => signInWithGoogle("", {prompt: "select_account"})}>Sign in with Google</Button>
                 </Stack>
             </Center>
 
