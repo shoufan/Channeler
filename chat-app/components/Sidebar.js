@@ -16,7 +16,7 @@ export default function Sidebar(){
     const router = useRouter();
 
     const redirect = (id) => {
-        router.push('/chat/${id}');
+        router.push(`/chat/${id}`);
     }
 
     const chatExists = email => chats?.find(chat => (chat.users.includes(user.email) && chat.users.includes(email)))
