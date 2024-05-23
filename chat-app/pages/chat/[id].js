@@ -1,5 +1,5 @@
 import Sidebar from "@/components/Sidebar"
-import { Avatar, Flex, FormControl, Heading, Input, Button, Text } from "@chakra-ui/react"
+import { Flex, Text } from "@chakra-ui/react"
 import { query, collection, orderBy, doc } from "firebase/firestore"
 import Head from "next/head"
 import { useRouter } from "next/router"
@@ -7,40 +7,18 @@ import { useCollectionData, useDocumentData } from "react-firebase-hooks/firesto
 import { db, auth } from "@/firebaseconfig"
 import { useAuthState } from 'react-firebase-hooks/auth';
 import getOtherEmail from "@/utils/getOtherEmail"
-
-const Topbar = ({email}) => {
-    return (
-        <Flex
-        bg = "blue.50"
-        h={"81px"} w={"100%"}
-        align={"center"}
-        p={5}>
-            <Avatar src="" marginEnd={3}/>
-            <Heading size={"lg"}>{email}</Heading>
-        </Flex>
-    )
-}
-
-const Bottombar = () => {
-    return (
-        <FormControl
-        p={3}>
-            <Input placeholder="Type a message..."/>
-            <Button type="submit" hidden autoComplete="off">Submit</Button>
-        </FormControl>
-    )
-}
+import Topbar from "../../components/Topbar";
+import Bottombar from "../../components/Bottombar";
+import { useEffect, useRef } from "react"
 
 export default function Chat () {
     const router = useRouter();
     const { id } = router.query;
-
     const [user] = useAuthState(auth);
-
     const q = query(collection(db, "chats", id, "messages"), orderBy("timestamp"));
     const [messages] = useCollectionData(q);
-
     const[chat] = useDocumentData(doc(db, "chats", id));
+    const bottomOfChat = useRef();
 
     const getMessages = () =>
         messages?.map(msg => {
@@ -52,6 +30,17 @@ export default function Chat () {
                 </Flex>
             )
         })
+
+    useEffect(() => {
+        if (bottomOfChat.current) {
+            setTimeout(() => {
+                bottomOfChat.current.scrollIntoView({
+                    behavior: "smooth",
+                    block: 'start',
+                });
+            }, 100);
+        }
+    }, [messages]);
 
     return (
         <Flex
@@ -71,10 +60,11 @@ export default function Chat () {
                 <Flex flex={1} direction={"column"} pt={4} mx={5} overflowX={"scroll"} sx={{scrollbarWidth: "none"}}>
                     
                     {getMessages()}
+                    <div ref={bottomOfChat}></div>
                     
                 </Flex>
 
-                <Bottombar />
+                <Bottombar id={id} user={user}/>
 
             </Flex>
         </Flex>
